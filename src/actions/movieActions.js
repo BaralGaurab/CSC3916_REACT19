@@ -31,12 +31,14 @@ export function setMovie(movie) {
 
 export function fetchMovie(movieId) {
     return dispatch => {
+        const raw = localStorage.getItem('token') || '';
+        const auth = raw.startsWith('jwt ') ? raw : `jwt ${raw}`;
         return fetch(`${env.REACT_APP_API_URL}/movies/${movieId}?reviews=true`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token')
+                'Authorization': auth
             },
             mode: 'cors'
         }).then((response) => {
@@ -52,12 +54,14 @@ export function fetchMovie(movieId) {
 
 export function fetchMovies() {
     return dispatch => {
+        const raw = localStorage.getItem('token') || '';
+        const auth = raw.startsWith('jwt ') ? raw : `jwt ${raw}`;
         return fetch(`${env.REACT_APP_API_URL}/movies?reviews=true`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token')
+                'Authorization': auth
             },
             mode: 'cors'
         }).then((response) => {
